@@ -1,0 +1,800 @@
+<!DOCTYPE html>
+<html lang="cs">
+<head>
+    <meta charset="UTF-8">
+    <title>AutoImport Pásek – dovoz a prodej automobilů ze zahraničí</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Dovoz a prodej prověřených automobilů ze zahraničí. Individuální dovoz na zakázku, kontrola historie, férové jednání.">
+    <style>
+        :root {
+            --primary: #1f3b64;
+            --primary-light: #29518c;
+            --accent: #f6b41c;
+            --bg: #f5f7fa;
+            --text: #222;
+            --muted: #666;
+            --white: #ffffff;
+            --card-shadow: 0 8px 20px rgba(0,0,0,0.08);
+        }
+
+        * {
+            box-sizing: border-box;
+        }
+
+        body {
+            margin: 0;
+            font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+            color: var(--text);
+            background: var(--bg);
+            line-height: 1.5;
+        }
+
+        a {
+            text-decoration: none;
+            color: inherit;
+        }
+
+        /* HEADER */
+
+        header {
+            position: sticky;
+            top: 0;
+            z-index: 100;
+            background: rgba(7, 22, 43, 0.97);
+            backdrop-filter: blur(10px);
+            color: var(--white);
+        }
+
+        .header-inner {
+            max-width: 1120px;
+            margin: 0 auto;
+            padding: 0.6rem 1.5rem;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+        }
+
+        .logo {
+            display: flex;
+            align-items: center;
+            gap: 0.6rem;
+            font-weight: 700;
+            letter-spacing: 0.04em;
+            text-transform: uppercase;
+            font-size: 0.95rem;
+        }
+
+        .logo-mark {
+            width: 28px;
+            height: 28px;
+            border-radius: 50%;
+            background: linear-gradient(135deg, var(--accent), #ffd86b);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 0.8rem;
+            color: #000;
+        }
+
+        nav ul {
+            list-style: none;
+            display: flex;
+            gap: 1.5rem;
+            margin: 0;
+            padding: 0;
+            font-size: 0.9rem;
+        }
+
+        nav a {
+            color: rgba(255,255,255,0.85);
+        }
+
+        nav a:hover {
+            color: #fff;
+        }
+
+        /* HERO */
+
+        .hero {
+            background: radial-gradient(circle at top left, #27426e 0, #0d1726 50%, #050a12 100%);
+            color: var(--white);
+            padding: 4rem 1.5rem 3.5rem;
+        }
+
+        .hero-inner {
+            max-width: 1120px;
+            margin: 0 auto;
+            display: grid;
+            grid-template-columns: minmax(0, 2fr) minmax(0, 1.6fr);
+            gap: 2.5rem;
+            align-items: center;
+        }
+
+        .hero-kicker {
+            font-size: 0.8rem;
+            letter-spacing: 0.16em;
+            text-transform: uppercase;
+            color: var(--accent);
+            margin-bottom: 0.75rem;
+        }
+
+        .hero h1 {
+            font-size: clamp(2.1rem, 3vw + 1.5rem, 2.9rem);
+            margin: 0 0 1rem;
+        }
+
+        .hero p {
+            margin: 0 0 1.5rem;
+            color: rgba(255,255,255,0.82);
+            max-width: 32rem;
+        }
+
+        .hero-badges {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 0.75rem;
+            margin-bottom: 1.75rem;
+        }
+
+        .badge {
+            font-size: 0.75rem;
+            padding: 0.35rem 0.7rem;
+            border-radius: 999px;
+            background: rgba(255,255,255,0.06);
+            border: 1px solid rgba(255,255,255,0.12);
+        }
+
+        .hero-actions {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 0.75rem;
+            align-items: center;
+        }
+
+        .btn-primary {
+            background: var(--accent);
+            border-radius: 999px;
+            padding: 0.7rem 1.6rem;
+            font-weight: 600;
+            border: none;
+            cursor: pointer;
+            font-size: 0.95rem;
+            display: inline-flex;
+            align-items: center;
+            gap: 0.4rem;
+        }
+
+        .btn-primary:hover {
+            filter: brightness(1.05);
+        }
+
+        .btn-ghost {
+            padding: 0.7rem 1.2rem;
+            border-radius: 999px;
+            border: 1px solid rgba(255,255,255,0.35);
+            font-size: 0.9rem;
+            background: transparent;
+            color: rgba(255,255,255,0.9);
+            cursor: pointer;
+        }
+
+        .hero-note {
+            font-size: 0.8rem;
+            color: rgba(255,255,255,0.6);
+            margin-top: 0.6rem;
+        }
+
+        .hero-card {
+            background: radial-gradient(circle at top, #2b5b9f 0, #10192a 55%, #050a12 100%);
+            border-radius: 18px;
+            padding: 1.4rem 1.5rem;
+            box-shadow: var(--card-shadow);
+            border: 1px solid rgba(255,255,255,0.08);
+        }
+
+        .hero-card-title {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 0.7rem;
+        }
+
+        .hero-card-title span {
+            font-size: 0.9rem;
+            color: rgba(255,255,255,0.9);
+        }
+
+        .hero-card-badge {
+            font-size: 0.75rem;
+            padding: 0.25rem 0.6rem;
+            border-radius: 999px;
+            background: rgba(0,0,0,0.35);
+            border: 1px solid rgba(255,255,255,0.2);
+        }
+
+        .hero-car-name {
+            font-weight: 600;
+            margin-bottom: 0.2rem;
+        }
+
+        .hero-car-meta {
+            font-size: 0.8rem;
+            color: rgba(255,255,255,0.72);
+            margin-bottom: 0.8rem;
+        }
+
+        .hero-car-stats {
+            display: grid;
+            grid-template-columns: repeat(2, minmax(0, 1fr));
+            gap: 0.4rem;
+            font-size: 0.75rem;
+        }
+
+        .hero-stat-label {
+            color: rgba(255,255,255,0.6);
+        }
+
+        .hero-stat-value {
+            font-weight: 600;
+        }
+
+        .hero-price-row {
+            display: flex;
+            justify-content: space-between;
+            align-items: baseline;
+            margin-top: 0.9rem;
+        }
+
+        .hero-price {
+            font-size: 1.05rem;
+            font-weight: 600;
+        }
+
+        .hero-price-note {
+            font-size: 0.75rem;
+            color: rgba(255,255,255,0.6);
+        }
+
+        /* CONTENT SECTIONS */
+
+        main {
+            max-width: 1120px;
+            margin: 0 auto;
+            padding: 3rem 1.5rem 3.5rem;
+        }
+
+        section {
+            margin-bottom: 3rem;
+        }
+
+        h2.section-title {
+            font-size: 1.6rem;
+            margin-bottom: 0.4rem;
+        }
+
+        .section-subtitle {
+            font-size: 0.9rem;
+            color: var(--muted);
+            margin-bottom: 1.8rem;
+        }
+
+        .grid-3 {
+            display: grid;
+            grid-template-columns: repeat(3, minmax(0, 1fr));
+            gap: 1.5rem;
+        }
+
+        .card {
+            background: var(--white);
+            border-radius: 14px;
+            padding: 1.3rem 1.3rem 1.4rem;
+            box-shadow: var(--card-shadow);
+        }
+
+        .card-icon {
+            font-size: 1.4rem;
+            margin-bottom: 0.6rem;
+        }
+
+        .card h3 {
+            margin: 0 0 0.4rem;
+            font-size: 1.05rem;
+        }
+
+        .card p {
+            margin: 0;
+            font-size: 0.9rem;
+            color: var(--muted);
+        }
+
+        /* STEPS */
+
+        .steps {
+            display: grid;
+            grid-template-columns: repeat(4, minmax(0, 1fr));
+            gap: 1rem;
+        }
+
+        .step {
+            background: var(--white);
+            border-radius: 12px;
+            padding: 1rem 1rem 1.1rem;
+            box-shadow: var(--card-shadow);
+            font-size: 0.9rem;
+        }
+
+        .step-number {
+            width: 26px;
+            height: 26px;
+            border-radius: 50%;
+            background: var(--primary);
+            color: #fff;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 0.75rem;
+            margin-bottom: 0.4rem;
+        }
+
+        .step-title {
+            font-weight: 600;
+            margin-bottom: 0.3rem;
+        }
+
+        /* CARS */
+
+        .car-grid {
+            display: grid;
+            grid-template-columns: repeat(3, minmax(0, 1fr));
+            gap: 1.5rem;
+        }
+
+        .car-card {
+            background: var(--white);
+            border-radius: 14px;
+            box-shadow: var(--card-shadow);
+            padding: 1.2rem 1.2rem 1.3rem;
+            font-size: 0.9rem;
+        }
+
+        .car-label {
+            font-size: 0.7rem;
+            text-transform: uppercase;
+            letter-spacing: 0.15em;
+            color: var(--muted);
+            margin-bottom: 0.25rem;
+        }
+
+        .car-name {
+            font-weight: 600;
+            margin-bottom: 0.3rem;
+        }
+
+        .car-meta {
+            font-size: 0.8rem;
+            color: var(--muted);
+            margin-bottom: 0.8rem;
+        }
+
+        .car-row {
+            display: flex;
+            justify-content: space-between;
+            font-size: 0.8rem;
+            margin-bottom: 0.2rem;
+        }
+
+        .car-price {
+            margin-top: 0.5rem;
+            font-weight: 600;
+        }
+
+        /* CONTACT */
+
+        .contact-layout {
+            display: grid;
+            grid-template-columns: minmax(0, 1.2fr) minmax(0, 1.8fr);
+            gap: 2rem;
+        }
+
+        .contact-box {
+            background: var(--white);
+            border-radius: 14px;
+            padding: 1.4rem 1.4rem 1.5rem;
+            box-shadow: var(--card-shadow);
+            font-size: 0.9rem;
+        }
+
+        .contact-box h3 {
+            margin-top: 0;
+        }
+
+        .contact-item {
+            margin-bottom: 0.6rem;
+        }
+
+        .contact-item span {
+            display: block;
+            font-size: 0.8rem;
+            color: var(--muted);
+        }
+
+        .contact-item strong {
+            font-size: 0.95rem;
+        }
+
+        form {
+            display: grid;
+            gap: 0.7rem;
+        }
+
+        label {
+            font-size: 0.8rem;
+            margin-bottom: 0.1rem;
+            color: var(--muted);
+        }
+
+        input, textarea {
+            font-family: inherit;
+            font-size: 0.9rem;
+            padding: 0.55rem 0.7rem;
+            border-radius: 8px;
+            border: 1px solid #ccd2dd;
+            width: 100%;
+        }
+
+        textarea {
+            min-height: 120px;
+            resize: vertical;
+        }
+
+        .form-row {
+            display: grid;
+            grid-template-columns: repeat(2, minmax(0, 1fr));
+            gap: 0.8rem;
+        }
+
+        .form-note {
+            font-size: 0.75rem;
+            color: var(--muted);
+        }
+
+        /* FOOTER */
+
+        footer {
+            background: #050a12;
+            color: rgba(255,255,255,0.65);
+            font-size: 0.78rem;
+            padding: 1rem 1.5rem 1.1rem;
+        }
+
+        .footer-inner {
+            max-width: 1120px;
+            margin: 0 auto;
+            display: flex;
+            justify-content: space-between;
+            gap: 1rem;
+            flex-wrap: wrap;
+        }
+
+        /* RESPONSIVE */
+
+        @media (max-width: 900px) {
+            .hero-inner {
+                grid-template-columns: minmax(0, 1fr);
+            }
+
+            .steps {
+                grid-template-columns: repeat(2, minmax(0, 1fr));
+            }
+
+            .grid-3, .car-grid {
+                grid-template-columns: repeat(2, minmax(0, 1fr));
+            }
+
+            .contact-layout {
+                grid-template-columns: minmax(0, 1fr);
+            }
+        }
+
+        @media (max-width: 640px) {
+            nav ul {
+                display: none;
+            }
+
+            .grid-3, .car-grid, .steps {
+                grid-template-columns: minmax(0, 1fr);
+            }
+
+            .hero {
+                padding-top: 3rem;
+            }
+        }
+    </style>
+</head>
+<body>
+
+<header>
+    <div class="header-inner">
+        <div class="logo">
+            <div class="logo-mark">AP</div>
+            <div>AutoImport Pásek</div>
+        </div>
+        <nav>
+            <ul>
+                <li><a href="#uvod">Úvod</a></li>
+                <li><a href="#sluzby">Služby</a></li>
+                <li><a href="#postup">Postup</a></li>
+                <li><a href="#kontakt">Kontakt</a></li>
+            </ul>
+        </nav>
+    </div>
+</header>
+
+<section class="hero" id="uvod">
+    <div class="hero-inner">
+        <div>
+            <div class="hero-kicker">Dovoz a prodej vozů</div>
+            <h1>Dovoz a prodej kvalitních automobilů ze zahraničí</h1>
+            <p>
+                Zajistím pro vás prověřený vůz na míru, včetně kontroly historie, technického stavu
+                a kompletního přihlášení v ČR. Férový přístup, jasné podmínky, osobní jednání.
+            </p>
+
+            <div class="hero-badges">
+                <div class="badge">✔ Individuální dovoz na zakázku</div>
+                <div class="badge">✔ Kontrola historie a nájezdu</div>
+                <div class="badge">✔ Administrativa a přihlášení v ceně</div>
+            </div>
+
+            <div class="hero-actions">
+                <a href="#kontakt">
+                    <button class="btn-primary">
+                        Nezávazná poptávka
+                        <span>→</span>
+                    </button>
+                </a>
+                <a href="#postup">
+                    <button class="btn-ghost">
+                        Jak dovoz probíhá
+                    </button>
+                </a>
+            </div>
+            <div class="hero-note">
+                Ing. Tomáš Pásek • více než 10 let zkušeností s dovozem vozů z EU
+            </div>
+        </div>
+
+        <!-- hero karta – ukázková nabídka, obecná -->
+        <div class="hero-card" aria-label="Ukázková nabídka vozu">
+            <div class="hero-card-title">
+                <span>Ukázková nabídka dovozu</span>
+                <div class="hero-card-badge">Na zakázku 🔎</div>
+            </div>
+            <div class="hero-car-name">Typický vůz: kompaktní hatchback / kombi</div>
+            <div class="hero-car-meta">
+                cca 80–140 000 km • benzín nebo nafta • rok výroby od 2017
+            </div>
+            <div class="hero-car-stats">
+                <div>
+                    <div class="hero-stat-label">Výbava</div>
+                    <div class="hero-stat-value">klimatizace, tempomat, infotainment</div>
+                </div>
+                <div>
+                    <div class="hero-stat-label">Původ</div>
+                    <div class="hero-stat-value">Německo, Rakousko, Nizozemsko</div>
+                </div>
+            </div>
+            <div class="hero-price-row">
+                <div>
+                    <div class="hero-price">Dovoz vozu od cca 250 000 Kč</div>
+                    <div class="hero-price-note">ilustrační příklad, finální cena dle konkrétního vozu</div>
+                </div>
+                <div class="hero-price-note">
+                    Včetně přihlášení a základního servisu
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<main>
+    <section id="sluzby">
+        <h2 class="section-title">Proč dovoz s AutoImport Pásek</h2>
+        <div class="section-subtitle">
+            Specializuji se na individuální dovoz vozů z Německa, Rakouska a dalších zemí EU.
+            Žádné univerzální řešení – vždy hledám konkrétní auto pro konkrétního klienta.
+        </div>
+
+        <div class="grid-3">
+            <div class="card">
+                <div class="card-icon">✅</div>
+                <h3>Prověřený původ a historie</h3>
+                <p>
+                    Kontrola historie vozu, záznamů o servisu a kilometrech. Využívám dostupné databáze
+                    a podklady od zahraničních partnerů.
+                </p>
+            </div>
+            <div class="card">
+                <div class="card-icon">🧾</div>
+                <h3>Kompletní administrativa</h3>
+                <p>
+                    Zajistím dovoz, STK, emise, evidenční kontrolu i přihlášení na české značky.
+                    Klient dostává vůz připravený k provozu.
+                </p>
+            </div>
+            <div class="card">
+                <div class="card-icon">🚗</div>
+                <h3>Individuální výběr vozu</h3>
+                <p>
+                    Společně nastavíme rozpočet a požadavky, podle kterých vyberu vhodné kandidáty.
+                    Vždy vysvětlím výhody a rizika jednotlivých možností.
+                </p>
+            </div>
+        </div>
+    </section>
+
+    <section id="postup">
+        <h2 class="section-title">Jak dovoz vozu probíhá</h2>
+        <div class="section-subtitle">
+            Transparentní postup od první poptávky až po předání klíčů. Bez skrytých poplatků.
+        </div>
+
+        <div class="steps">
+            <div class="step">
+                <div class="step-number">1</div>
+                <div class="step-title">Nezávazná konzultace</div>
+                <div>Probereme rozpočet, typ vozu, nájezd a další priority. Navrhnu možná řešení.</div>
+            </div>
+            <div class="step">
+                <div class="step-number">2</div>
+                <div class="step-title">Výběr nabídky</div>
+                <div>Vyhledám vhodné vozy v zahraničí a k vybraným kusům připravím podrobnější podklady.</div>
+            </div>
+            <div class="step">
+                <div class="step-number">3</div>
+                <div class="step-title">Dovoz a příprava</div>
+                <div>Zařídím dopravu do ČR, základní kontrolu technického stavu a potřebné administrativní úkony.</div>
+            </div>
+            <div class="step">
+                <div class="step-number">4</div>
+                <div class="step-title">Přihlášení a předání</div>
+                <div>Vůz přihlásím na české značky, připravím smlouvy a domluvíme předání podle vašich možností.</div>
+            </div>
+        </div>
+    </section>
+
+    <section id="nabidka">
+        <h2 class="section-title">Ukázkové typy vozů, které lze dovézt</h2>
+        <div class="section-subtitle">
+            Níže uvedené příklady jsou ilustrační – konkrétní nabídku vždy připravuji na míru
+            podle vašeho rozpočtu a požadavků.
+        </div>
+
+        <div class="car-grid">
+            <div class="car-card">
+                <div class="car-label">Rodinný vůz • Benzín / nafta</div>
+                <div class="car-name">Kompaktní kombi střední třídy</div>
+                <div class="car-meta">
+                    Například Škoda Octavia, VW Golf Variant, Hyundai i30 kombi…  
+                    Rok výroby zpravidla od 2017, nájezd cca 100–160 000 km.
+                </div>
+                <div class="car-row">
+                    <span>Vhodné pro:</span>
+                    <span>rodiny, denní dojíždění</span>
+                </div>
+                <div class="car-price">Cena dovozu obvykle od cca 260 000 Kč vč. DPH</div>
+            </div>
+
+            <div class="car-card">
+                <div class="car-label">Město • Nižší spotřeba</div>
+                <div class="car-name">Menší hatchback</div>
+                <div class="car-meta">
+                    Například Škoda Fabia, Toyota Yaris, Renault Clio…  
+                    Ideální jako druhé auto do rodiny nebo městské auto.
+                </div>
+                <div class="car-row">
+                    <span>Vhodné pro:</span>
+                    <span>město, kratší trasy</span>
+                </div>
+                <div class="car-price">Cena dovozu obvykle od cca 180 000 Kč vč. DPH</div>
+            </div>
+
+            <div class="car-card">
+                <div class="car-label">Comfort • Dálnice</div>
+                <div class="car-name">Střední / vyšší třída</div>
+                <div class="car-meta">
+                    Například Mazda 6, VW Passat, BMW řady 3…  
+                    Vhodné na delší trasy a časté cestování po dálnici.
+                </div>
+                <div class="car-row">
+                    <span>Vhodné pro:</span>
+                    <span>firemní i soukromé cestování</span>
+                </div>
+                <div class="car-price">Cena dovozu obvykle od cca 350 000 Kč vč. DPH</div>
+            </div>
+        </div>
+    </section>
+
+    <section id="kontakt">
+        <h2 class="section-title">Kontakt</h2>
+        <div class="section-subtitle">
+            Zajímá vás dovoz konkrétního vozu, nebo chcete jen nezávazně probrat možnosti?
+            Ozvěte se, rád vše vysvětlím.
+        </div>
+
+        <div class="contact-layout">
+            <div class="contact-box">
+                <h3>Kontaktní údaje</h3>
+                <div class="contact-item">
+                    <span>Jméno</span>
+                    <strong>Ing. Tomáš Pásek</strong>
+                </div>
+                <div class="contact-item">
+                    <span>Telefon</span>
+                    <strong><a href="tel:+420732964017">+420 732 964 017</a></strong>
+                </div>
+                <div class="contact-item">
+                    <span>E-mail</span>
+                    <strong><a href="mailto:tommybrno@email.cz">tommybrno@email.cz</a></strong>
+                </div>
+                <div class="contact-item">
+                    <span>Lokalita</span>
+                    <strong>Brno a okolí • dovoz z celé EU</strong>
+                </div>
+                <p class="form-note">
+                    Obvykle reaguji v pracovních dnech do 24 hodin. V případě naléhavých
+                    dotazů prosím volejte.
+                </p>
+            </div>
+
+            <div class="contact-box">
+                <h3>Nezávazná poptávka vozu</h3>
+                <form>
+                    <div class="form-row">
+                        <div>
+                            <label for="jmeno">Jméno a příjmení</label>
+                            <input type="text" id="jmeno" name="jmeno" placeholder="Jan Novák">
+                        </div>
+                        <div>
+                            <label for="email">E-mail</label>
+                            <input type="email" id="email" name="email" placeholder="vas@email.cz">
+                        </div>
+                    </div>
+                    <div class="form-row">
+                        <div>
+                            <label for="telefon">Telefon</label>
+                            <input type="tel" id="telefon" name="telefon" placeholder="+420 ...">
+                        </div>
+                        <div>
+                            <label for="rozpocet">Přibližný rozpočet</label>
+                            <input type="text" id="rozpocet" name="rozpocet" placeholder="např. 350 000 Kč">
+                        </div>
+                    </div>
+                    <div>
+                        <label for="pozadavek">Jaký vůz hledáte?</label>
+                        <textarea id="pozadavek" name="pozadavek" placeholder="Např. rodinný kombík, diesel, max. 120 000 km, rok výroby od 2018..."></textarea>
+                    </div>
+                    <div class="form-note">
+                        Odesláním formuláře souhlasíte se zpracováním uvedených údajů za účelem kontaktování
+                        ohledně dovozu vozu. (Formulář je ukázkový – napojení na e-mail/CRM je potřeba doplnit.)
+                    </div>
+                    <button type="submit" class="btn-primary">Odeslat poptávku</button>
+                </form>
+            </div>
+        </div>
+    </section>
+</main>
+
+<footer>
+    <div class="footer-inner">
+        <div>© <span id="year"></span> AutoImport Pásek – dovoz a prodej automobilů ze zahraničí</div>
+        <div>Tento web je vzorová prezentace; ceny jsou orientační.</div>
+    </div>
+    <script>
+        // nastavení roku ve footeru
+        document.getElementById('year').textContent = new Date().getFullYear();
+    </script>
+</footer>
+
+</body>
+</html>
