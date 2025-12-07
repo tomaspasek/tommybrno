@@ -791,8 +791,14 @@
         <div>Tento web zobrazuje vzorové příklady; ceny jsou orientační.</div>
     </div>
     <script>
-        // nastavení roku ve footeru
-        document.getElementById('year').textContent = new Date().getFullYear();
+        // Získá aktuální rok (např. 2025)
+    const currentYear = new Date().getFullYear(); 
+    
+    // Nastaví požadovaný počáteční rok
+    const startYear = 2015;
+
+    // Vytvoří textový řetězec ve formátu "2015-2025" a vloží jej do elementu s ID 'year'
+    document.getElementById('year').textContent = startYear + '–' + currentYear;
     </script>
 </footer>
 
