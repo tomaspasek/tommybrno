@@ -476,6 +476,11 @@
             flex-wrap: wrap;
         }
 
+        /* Ochrana proti robotům */
+        .d-none {
+            display: none !important;
+        }
+
         /* RESPONSIVE */
 
         @media (max-width: 900px) {
@@ -731,7 +736,9 @@
                 </div>
                 <div class="contact-item">
                     <span>Telefon</span>
-                    <strong><a href="tel:+420732964017">+420 732 964 017</a></strong>
+    <strong class="phone-display">
+        +420 <span class="d-none">SPAM</span> 732 <span class="d-none">FILTER</span> 964 <span class="d-none">BOT</span> 017
+    </strong>
                 </div>
                 <div class="contact-item">
                     <span>E-mail</span>
